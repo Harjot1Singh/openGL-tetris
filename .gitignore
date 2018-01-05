@@ -33,3 +33,8 @@
 
 # IntelliJ files
 .idea/
+/.vs/openGL Tetris/v15
+/Debug
+/openGL Tetris.vcxproj.filters
+/openGL Tetris.vcxproj
+/openGL Tetris.sln
