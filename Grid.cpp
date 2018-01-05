@@ -62,8 +62,3 @@ Grid::Grid(int width, int height)
 {
 	grid = createGrid(width, height);
 }
-
-
-Grid::~Grid()
-{
-}

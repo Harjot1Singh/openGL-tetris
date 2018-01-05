@@ -2,8 +2,3 @@
 Tetronimo::Tetronimo()
 {
 }
-
-
-Tetronimo::~Tetronimo()
-{
-}

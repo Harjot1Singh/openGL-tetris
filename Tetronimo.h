@@ -5,6 +5,4 @@ class Tetronimo :
 {
 public:
 	Tetronimo();
-	~Tetronimo();
 };
-
