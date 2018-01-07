@@ -44,10 +44,12 @@ void Grid::rotate(bool clockwise)
 	// Get a correctly sized grid
 	vector<vector<Block>> newGrid = createGrid(newWidth, newHeight);
 
+	int direction = clockwise ? 1 : -1;
+
 	// Place each value that was in a column in the row
-	for (int i = 0; i < newWidth; i++)
+	for (int i = 0; i < newWidth; i += direction)
 	{
-		for (int j = 0; j < newHeight; j++)
+		for (int j = 0; j < newHeight; j += direction)
 		{
 			newGrid[i][j] = grid[j][i];
 		}
