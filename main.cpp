@@ -28,7 +28,7 @@ void hookGlut()
 }
 
 /* Displays version information about GLEW and openGL */
-void displayGLInfo() 
+void displayGLInfo()
 {
 	cout << "Using GLEW " << glewGetString(GLEW_VERSION) << endl;
 	cout << "Using OpenGL " << glGetString(GL_VERSION) << endl;
@@ -36,7 +36,7 @@ void displayGLInfo()
 
 
 /* Initialises GLUT and GLEW */
-void initGlut(int argc, char **argv) 
+void initGlut(int argc, char **argv)
 {
 	cout << "Initialising Tetris..." << endl;
     glutInit(&argc, argv);
@@ -44,15 +44,14 @@ void initGlut(int argc, char **argv)
 	// Double buffering and RBGA mode
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
 
-	glutInitWindowSize(1000, 1000);
-	glutInitWindowPosition(50, 50);
+	glutInitWindowSize(768, 768);
 	glutCreateWindow("TetrisGL");
-  
+
 	glewInit();
 }
 
 /* Entry point */
-int main(int argc, char **argv) 
+int main(int argc, char **argv)
 {
 	initGlut(argc, argv);
 
