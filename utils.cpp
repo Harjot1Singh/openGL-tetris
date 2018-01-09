@@ -4,33 +4,39 @@
 #include <iostream>
 #include "utils.h"
 
+#include <stdlib.h>
+#include <stddef.h>
+
 /* Draws text, where 0 < x, y < 1000 */
 void drawText(const int x, const int y, const char* message, const float fontSize)
 {
+	std::cout << fontSize << std::endl;
 	const int size = 1000;
-	void * font = GLUT_BITMAP_9_BY_15;
-
 	// Disable lighting and setup projection matrix
 	glDisable(GL_LIGHTING);
-	glMatrixMode(GL_PROJECTION);
+	glMatrixMode (GL_PROJECTION);
 	glPushMatrix();
+		// Reset view and define "viewing box"
 		glLoadIdentity();
-		// Set up a plane of size x size
 		gluOrtho2D(0, size, 0, size);
-		// Setup model view matrix and reset
+		// Setup Model view matrix and reset it
 		glMatrixMode(GL_MODELVIEW);
 		glPushMatrix();
 			glLoadIdentity();
-			glColor3f(0.0, 1.0, 0.0);
-			glRasterPos2i(900, 900);
-			size_t len = sizeof(message);
+			// Place the text within the bounds defined in 2D space
+			glTranslatef(x, y, 0.0f);
+			// Size the font
+			glScalef(fontSize, fontSize, 1.0f);
+			// Get the length of the string
+			size_t len = strlen(message);
+			// loop to display character by character
 			for (int i = 0; i < len; i++)
 			{
-    		glutBitmapCharacter(font, message[i]);
+				// Paint each character with strokes
+				glutStrokeCharacter(GLUT_STROKE_ROMAN, message[i]);
 			}
-			glMatrixMode(GL_MODELVIEW);
+		// Finish with the matricies
 		glPopMatrix();
-		glMatrixMode(GL_PROJECTION);
 	glPopMatrix();
 	// Re-enable lighting
 	glEnable(GL_LIGHTING);
