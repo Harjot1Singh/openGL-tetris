@@ -37,7 +37,9 @@ void drawText(const int x, const int y, const char* message, const float fontSiz
 			}
 		// Finish with the matricies
 		glPopMatrix();
+		glMatrixMode(GL_MODELVIEW);
 	glPopMatrix();
+	glMatrixMode(GL_PROJECTION);
 	// Re-enable lighting
 	glEnable(GL_LIGHTING);
 }

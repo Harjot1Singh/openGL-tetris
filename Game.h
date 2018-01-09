@@ -14,5 +14,5 @@ class Game : public IDisplay
 	private:
 		Menu menu;
 		Difficulty difficulty;
-		bool hasStarted;
+		bool hasStarted = false;
 };
