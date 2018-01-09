@@ -1,8 +1,9 @@
 #pragma once
+
 #include "Grid.h"
-class Tetromino :
-	public Grid
+
+class Tetromino : public Grid
 {
-public:
-	Tetromino();
+	public:
+		Tetromino();
 };

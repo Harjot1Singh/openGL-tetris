@@ -1,7 +1,8 @@
 #include <iostream>
 
-#include "Game.h"
 #include "utils.h"
+
+#include "Game.h"
 
 using namespace std;
 

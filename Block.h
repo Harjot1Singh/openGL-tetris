@@ -1,7 +1,7 @@
 #pragma once
+
 class Block
 {
-public:
-	Block();
+	public:
+		Block();
 };
-

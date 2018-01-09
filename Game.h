@@ -1,8 +1,10 @@
 #pragma once
 
-class Game
+#include "IDisplay.h"
+
+class Game : public IDisplay
 {
-public:
-	void display();
-	Game();
+	public:
+		void display();
+		Game();
 };

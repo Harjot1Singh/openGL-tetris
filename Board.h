@@ -1,8 +1,9 @@
 #pragma once
+
 #include "Grid.h"
-class Board :
-	public Grid
+
+class Board :	public Grid
 {
-public:
-	Board();
+	public:
+		Board();
 };

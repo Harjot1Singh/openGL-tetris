@@ -3,7 +3,7 @@ PROGRAM_NAME = cs324_coursework
 
 # Modify this variable as appropriate as you add .cpp files to
 # your project
-SRCS = main.cpp Game.cpp utils.cpp
+SRCS = main.cpp Game.cpp Menu.cpp utils.cpp
 
 # you shouldn't need to modify below here, but you can
 # if you know what you're doing
