@@ -6,4 +6,3 @@ class Board :
 public:
 	Board();
 };
-
