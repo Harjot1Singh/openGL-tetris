@@ -6,5 +6,4 @@ class Menu : public IDisplay
 {
   public:
     void display();
-
 };
