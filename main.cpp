@@ -13,7 +13,21 @@ using namespace std;
 // Global, since Glut callback functions do not accept parameters
 Game game;
 
-/* GLUT hook functions*/
+/* GLUT callback functions*/
+void tick(int value)
+{
+		// Tick the game everytime the glut timer fires
+		game.nextTick();
+		glutTimerFunc(game.getSpeed(), tick, 0);
+}
+
+void keypress(unsigned char key, int, int)
+{
+	game.keypress(key);
+	// Redisplay after a keypress
+	glutPostRedisplay();
+}
+
 void display()
 {
 	game.display();
@@ -24,7 +38,9 @@ void display()
 /* Hooks GLUT callback functions */
 void hookGlut()
 {
+	glutTimerFunc(500, tick, 0);
 	glutDisplayFunc(display);
+	glutKeyboardFunc(keypress);
 }
 
 /* Displays version information about GLEW and openGL */

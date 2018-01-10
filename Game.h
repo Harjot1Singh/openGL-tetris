@@ -10,6 +10,9 @@ class Game : public IDisplay
 {
 	public:
 		void display();
+		void keypress(unsigned char key);
+		void nextTick();
+		int getSpeed();
 		Game();
 	private:
 		Menu menu;

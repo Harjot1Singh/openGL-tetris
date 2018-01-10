@@ -10,16 +10,49 @@
 
 using namespace std;
 
+/* Handles movement of blocks */
+void Game::nextTick()
+{
+	// Don't do anything if the game hasn't started
+	if (!hasStarted)
+	{
+		return;
+	}
+}
+
+/* Gets the speed in milliseconds that the game should tick at */
+int Game::getSpeed()
+{
+	switch (difficulty)
+	{
+		case Easy: return 1300; // 1.3 seconds per move
+		case Medium: return 1000; // 1 second per move
+		case Hard: return 700; // 0.7 seconds per move
+	}
+}
+
+/* Handles keypresses */
+void Game::keypress(unsigned char key)
+{
+	cout << key << endl;
+}
+
 /* Draws the content of the game */
 void Game::display()
 {
-		glColor3f(1.0f, 1.0f, 1.0f);
-		glBegin(GL_POLYGON);
-			glVertex2f(-0.5f, -0.5f);
-			glVertex2f(-0.2f, -0.5f);
-			glVertex2f(-0.5f, -0.2f);
-			glVertex2f(-0.3f, -0.2f);
-		glEnd();
+	glMatrixMode ( GL_MODELVIEW ) ;
+glLoadIdentity () ;
+gluLookAt (1 , 1 , 2 , // eye position
+0, 0 , 0 , // reference point
+0, 1 , 0 // up vector
+);
+glMatrixMode ( GL_PROJECTION );
+glLoadIdentity () ;
+
+glOrtho(-20, 20, -20, 20, -34, 4);
+glDisable(GL_LIGHTING);
+glutSolidCube(1.0f);
+glEnable(GL_LIGHTING);
 
 	// Display the menu if the game has not started
 	if (!hasStarted)
