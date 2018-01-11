@@ -10,6 +10,22 @@
 
 using namespace std;
 
+/* Gets the next piece to play */
+void Game::getNextPiece()
+{
+	// If there is no next piece, generate one
+	if (!nextPiece)
+	{
+		nextPiece = Tetromino::random();
+	}
+	// Free the old current piece's memory
+	delete currentPiece;
+	// Swap the pieces
+	currentPiece = nextPiece;
+	// Generate a new piece
+	nextPiece = Tetromino::random();
+}
+
 /* Increments the level, up to 15 */
 void Game::increaseLevel()
 {
@@ -64,9 +80,7 @@ void Game::keypress(unsigned char key)
 /* Draws the content of the game */
 void Game::display()
 {
-	Grid grid = Grid(10,20);
-	grid.getBlock(0,0)->setVisible(true);
-	grid.display();
+	board.display();
 	// Display a message the game has not started
 	if (!hasStarted)
 	{
@@ -82,4 +96,6 @@ void Game::display()
 
 Game::Game()
 {
+	// Initialise the board
+	board = Board();
 }

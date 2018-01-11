@@ -1,6 +1,7 @@
 #pragma once
 
 #include "IDisplay.h"
+#include "Board.h"
 
 class Game : public IDisplay
 {
@@ -13,6 +14,10 @@ class Game : public IDisplay
 	private:
 		bool hasStarted = false;
 		int level = 1;
+		Board board;
+		Tetromino* currentPiece = nullptr;
+		Tetromino* nextPiece = nullptr;
+		void getNextPiece();
 		void increaseLevel();
 		void startGame();
 		void stopGame();

@@ -1,5 +1,6 @@
 #include <vector>
 #include <map>
+#include <iostream>
 
 #include "Tetromino.h"
 
@@ -66,7 +67,16 @@ Tetromino::Tetromino(TetrominoType type) :
         // Set the block to visible
         Block* block = getBlock(col, row);
         block->setVisible(true);
+        cout << "Setting " << col << row << endl;
       }
     }
   }
+}
+
+/* Static method to get a random Tetromino*/
+Tetromino* Tetromino::random()
+{
+  // Grab a random type from the enum
+  TetrominoType type = static_cast<TetrominoType>(rand() % TYPE_COUNT);
+  return new Tetromino(type);
 }
