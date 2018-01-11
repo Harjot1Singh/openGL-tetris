@@ -14,12 +14,12 @@ void Grid::display()
 	int width = getWidth();
 
 	// Iterate over each run the display method
-	for (int i = 0; i < width; i++)
+	for (int col = 0; col < width; col++)
 	{
-		for (int j = 0; j < height; j++)
+		for (int row = 0; row < height; row++)
 		{
 			// Display the block
-			grid.at(i).at(j).display();
+			grid.at(col).at(row).display();
 		}
 	}
 }
@@ -60,11 +60,11 @@ void Grid::rotate(bool clockwise)
 	int direction = clockwise ? 1 : -1;
 
 	// Place each value that was in a column in the row
-	for (int i = 0; i < newWidth; i += direction)
+	for (int col = 0; col < newWidth; col += direction)
 	{
-		for (int j = 0; j < newHeight; j += direction)
+		for (int row = 0; row < newHeight; row += direction)
 		{
-			newGrid[i][j] = grid[j][i];
+			newGrid[col][row] = grid[row][col];
 		}
 	}
 

@@ -32,8 +32,6 @@ const map<TetrominoType, vector<vector<int>>> dimensions = {
       { 1, 1, 1 },
       { 1, 0, 0}
   } }
-},
-
 };
 
 /* Get the tetromino width from the dimensions map */
@@ -51,5 +49,24 @@ getTetrominoHeight(TetrominoType type)
 Tetromino::Tetromino(TetrominoType type) :
   Grid(getTetrominoWidth(type), getTetrominoHeight(type))
 {
+  // Get the dimensions for the type
+  vector<vector<int>> layout = dimensions.at(type);
+  // Get height and width again
+  int height = getTetrominoHeight(type);
+  int width = getTetrominoWidth(type);
 
+  // Set the blocks to non-empty as per the map
+  for (int col = 0; col < width; col++)
+  {
+    for ( int row = 0; row < height; row++)
+    {
+      // If the block is non-0 in the layout matrix, enable it
+      if (layout.at(col).at(row))
+      {
+        // Set the block to visible
+        Block* block = getBlock(col, row);
+        block->setVisible(true);
+      }
+    }
+  }
 }
