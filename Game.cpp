@@ -1,14 +1,37 @@
 #include <iostream>
-
+#include <cmath>
 #include <GL/glew.h>
 #include <GL/glut.h>
 
+#include "Grid.h"
 #include "utils.h"
 
-#include "Menu.h"
 #include "Game.h"
 
 using namespace std;
+
+/* Increments the level, up to 15 */
+void Game::increaseLevel()
+{
+	if (level != 15)
+	{
+		level += 1;
+	}
+}
+
+/* Starts the game */
+void Game::startGame()
+{
+	// Reset the level
+	level = 1;
+	hasStarted = true;
+}
+
+/* Stops the game */
+void Game::stopGame()
+{
+	hasStarted = false;
+}
 
 /* Handles movement of blocks */
 void Game::nextTick()
@@ -23,51 +46,40 @@ void Game::nextTick()
 /* Gets the speed in milliseconds that the game should tick at */
 int Game::getSpeed()
 {
-	switch (difficulty)
-	{
-		case Easy: return 1300; // 1.3 seconds per move
-		case Medium: return 1000; // 1 second per move
-		case Hard: return 700; // 0.7 seconds per move
-	}
+	// (0.8-((Level-1)*0.007))(Level-1), from Tetris World
+	double seconds = pow(0.8 - ((level - 1) * 0.007), level-1);
+	return round(seconds * 1000);
 }
 
 /* Handles keypresses */
 void Game::keypress(unsigned char key)
 {
-	cout << key << endl;
+	switch (key)
+	{
+		case 13: return startGame(); // Enter key
+		case 27: return stopGame(); // ESC key
+	}
 }
 
 /* Draws the content of the game */
 void Game::display()
 {
-	glMatrixMode ( GL_MODELVIEW ) ;
-glLoadIdentity () ;
-gluLookAt (1 , 1 , 2 , // eye position
-0, 0 , 0 , // reference point
-0, 1 , 0 // up vector
-);
-glMatrixMode ( GL_PROJECTION );
-glLoadIdentity () ;
-
-glOrtho(-20, 20, -20, 20, -34, 4);
-glDisable(GL_LIGHTING);
-glutSolidCube(1.0f);
-glEnable(GL_LIGHTING);
-
-	// Display the menu if the game has not started
+	Grid grid = Grid(10,20);
+	grid.getBlock(0,0)->setVisible(true);
+	grid.display();
+	// Display a message the game has not started
 	if (!hasStarted)
 	{
-		menu.display();
+		drawText(0, 200, "Press ENTER to start!");
 		return;
 	}
 
-	drawText(0, 200, "Use ' ' to spin the model");
-	drawText(0, 500, "Use 'x'/'X' to rotate the model in X axis");
-	drawText(0, 880, "Use '+'/'-' to change line width");
-	drawText(0, 840, "Use 'q' to quit");
+	// Display controls
+	drawText(0, 500, "Use 'LEFT'/'RIGHT' to move the piece");
+	drawText(0, 880, "Use 'UP'/'DOWN' to rotate the piece");
+	drawText(0, 840, "Use 'ESC' to end the game");
 }
 
 Game::Game()
 {
-	menu = Menu();
 }

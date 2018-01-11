@@ -10,7 +10,6 @@
 /* Draws text, where 0 < x, y < 1000 */
 void drawText(const int x, const int y, const char* message, const float fontSize)
 {
-	std::cout << fontSize << std::endl;
 	const int size = 1000;
 	// Disable lighting and setup projection matrix
 	glDisable(GL_LIGHTING);
@@ -37,9 +36,7 @@ void drawText(const int x, const int y, const char* message, const float fontSiz
 			}
 		// Finish with the matricies
 		glPopMatrix();
-		glMatrixMode(GL_MODELVIEW);
 	glPopMatrix();
-	glMatrixMode(GL_PROJECTION);
 	// Re-enable lighting
 	glEnable(GL_LIGHTING);
 }

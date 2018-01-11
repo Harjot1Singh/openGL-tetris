@@ -2,10 +2,6 @@
 
 #include "IDisplay.h"
 
-#include "Menu.h"
-
-enum Difficulty { Easy, Medium, Hard };
-
 class Game : public IDisplay
 {
 	public:
@@ -15,7 +11,9 @@ class Game : public IDisplay
 		int getSpeed();
 		Game();
 	private:
-		Menu menu;
-		Difficulty difficulty;
 		bool hasStarted = false;
+		int level = 1;
+		void increaseLevel();
+		void startGame();
+		void stopGame();
 };
