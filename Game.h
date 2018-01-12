@@ -17,8 +17,8 @@ class Game : public IDisplay
 		Board board;
 		Tetromino* currentPiece = nullptr;
 		Tetromino* nextPiece = nullptr;
+		void start();
+		void stop();
 		void getNextPiece();
 		void increaseLevel();
-		void startGame();
-		void stopGame();
 };

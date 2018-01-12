@@ -16,16 +16,16 @@ void Block::display()
 
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
-  gluLookAt (1 , 1 , 2 , // eye position
-  0, 0 , 0 , // reference point
-  0, 1 , 0 // up vector
-  );
-  glMatrixMode ( GL_PROJECTION );
-  glLoadIdentity () ;
+  gluLookAt(1, 1, 2,  // eye position
+            0, 0, 0,  // reference point
+            0, 1, 0); // up vector
 
-  glOrtho(-20, 20, -20, 20, -34, 4);
+  glMatrixMode(GL_PROJECTION);
+  glLoadIdentity();
+
+  glOrtho(-20, 20, -20, 20, -4, 4);
   glDisable(GL_LIGHTING);
-  // glutSolidCube(1.0f);
+  glutSolidCube(1.0f);
   renderBlock();
   glEnable(GL_LIGHTING);
 }
@@ -54,11 +54,12 @@ void Block::renderBlock()
   GLfloat v[8][3];
   GLint i;
 
-  v[0][0] = v[1][0] = v[2][0] = v[3][0] = -1;
-  v[4][0] = v[5][0] = v[6][0] = v[7][0] = 1;
-  v[0][1] = v[1][1] = v[4][1] = v[5][1] = -1;
-  v[2][1] = v[3][1] = v[6][1] = v[7][1] = 1;
+  v[0][0] = v[1][0] = v[2][0] = v[3][0] =
+  v[0][1] = v[1][1] = v[4][1] = v[5][1] =
   v[0][2] = v[3][2] = v[4][2] = v[7][2] = -1;
+
+  v[4][0] = v[5][0] = v[6][0] = v[7][0] =
+  v[2][1] = v[3][1] = v[6][1] = v[7][1] =
   v[1][2] = v[2][2] = v[5][2] = v[6][2] = 1;
 
   for (i = 0; i < 6; i++) {

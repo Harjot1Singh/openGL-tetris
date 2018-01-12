@@ -18,16 +18,20 @@ void tick(int value)
 {
 		// Tick the game everytime the glut timer fires
 		game.nextTick();
+		// The timer should be set depending on the level the user is on
 		glutTimerFunc(game.getSpeed(), tick, 0);
 }
 
+/* Handles keypress mappings */
 void keypress(unsigned char key, int, int)
 {
+	// Let the game handle keypresses
 	game.keypress(key);
 	// Redisplay after a keypress
 	glutPostRedisplay();
 }
 
+/* Displays the game */
 void display()
 {
 	game.display();

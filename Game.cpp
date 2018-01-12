@@ -36,15 +36,17 @@ void Game::increaseLevel()
 }
 
 /* Starts the game */
-void Game::startGame()
+void Game::start()
 {
 	// Reset the level
 	level = 1;
 	hasStarted = true;
+	// Set the first piece
+	getNextPiece();
 }
 
 /* Stops the game */
-void Game::stopGame()
+void Game::stop()
 {
 	hasStarted = false;
 }
@@ -72,15 +74,24 @@ void Game::keypress(unsigned char key)
 {
 	switch (key)
 	{
-		case 13: return startGame(); // Enter key
-		case 27: return stopGame(); // ESC key
+		case 13: return start(); // Enter key
+		case 27: return stop(); // ESC key
 	}
 }
 
 /* Draws the content of the game */
 void Game::display()
 {
+	// Clear the screen and depth buffer
+	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+	glLoadIdentity();
+
 	board.display();
+	if (currentPiece)
+	{
+		drawSquare(50, 50, 20);
+		drawSquare(100, 50, 20);
+	}
 	// Display a message the game has not started
 	if (!hasStarted)
 	{

@@ -67,7 +67,6 @@ Tetromino::Tetromino(TetrominoType type) :
         // Set the block to visible
         Block* block = getBlock(col, row);
         block->setVisible(true);
-        cout << "Setting " << col << row << endl;
       }
     }
   }
