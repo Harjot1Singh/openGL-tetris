@@ -7,9 +7,9 @@ SRCS = main.cpp Game.cpp Grid.cpp Board.cpp Tetromino.cpp Block.cpp utils.cpp
 
 # you shouldn't need to modify below here, but you can
 # if you know what you're doing
-CXXFLAGS= -O3 -std=c++11
-LDFLAGS= $(CXXFLAGS) $(LIBDIRS) -std=c++11
-LDLIBS = -lfreeglut -lopengl32 -lglu32 -lglew32 -lm
+CXXFLAGS= -O3 -std=c++11 -I/modules/cs324/glew-1.11.0/include
+LDFLAGS= $(CXXFLAGS) $(LIBDIRS) -std=c++11 -L/usr/X11R6/lib -L/modules/cs324/glew-1.11.0/lib -Wl,-rpath=/modules/cs324/glew-1.11.0/lib
+LDLIBS = -lglut -lGL -lGLU -lGLEW -lm -lX11
 OBJS=$(SRCS:%.cpp=%.o)
 
 default: $(PROGRAM_NAME)
@@ -18,6 +18,6 @@ $(PROGRAM_NAME): $(OBJS)
 	$(CXX) $(LDFLAGS) $^ $(LDLIBS) -o $@
 
 clean:
-	-@rm $(OBJS) $(PROGRAM_NAME).exe
+	-@rm $(OBJS) $(PROGRAM_NAME)
 
 .PHONY: default clean
