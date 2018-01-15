@@ -1,4 +1,7 @@
 #pragma once
 
-void drawText(const int x, const int y, const char* message, const float fontSize = 0.2f);
-void drawSquare(const int x, const int y, const int size);
+#include <string>
+
+void drawText(int offsetX, int offsetY, std::string message, float fontSize = 0.2f, float weight = 1.0f);
+void drawSquare();
+void drawSquareOutline();

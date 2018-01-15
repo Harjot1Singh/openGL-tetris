@@ -13,12 +13,31 @@ class Game : public IDisplay
 		Game();
 	private:
 		bool hasStarted = false;
-		int level = 1;
+		int score = -1;
+		int lines;
 		Board board;
-		Tetromino* currentPiece = nullptr;
 		Tetromino* nextPiece = nullptr;
+		Tetromino* currentPiece = nullptr;
+		int currentRow;
+		int currentColumn;
+		int getLevel();
 		void start();
 		void stop();
+		void updateScore(int scoredLines);
+		void displayCurrentPiece();
+		void movePiece(bool right);
+		void rotatePiece(bool clockwise);
+		void movePieceDown();
+		void displayControls();
+		void displayMenu();
+		void displayNextPiece();
+		void displayScore();
+		void displayLevel();
 		void getNextPiece();
-		void increaseLevel();
+		void initDisplay();
+		void gameKeypress(unsigned char key);
 };
+
+// The size and padding of the board
+const int GAME_SIZE = 1000;
+const int PADDING = -20;

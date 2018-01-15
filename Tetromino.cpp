@@ -1,13 +1,14 @@
 #include <vector>
 #include <map>
-#include <iostream>
+#include <array>
 
 #include "Tetromino.h"
 
 using namespace std;
 
 /* Holds the dimensions of each Tetromino block */
-const map<TetrominoType, vector<vector<int>>> dimensions = {
+const map<TetrominoType, vector<vector<int>>> dimensions =
+{
   { O, {
       { 1, 1 },
       { 1, 1 }
@@ -35,16 +36,28 @@ const map<TetrominoType, vector<vector<int>>> dimensions = {
   } }
 };
 
-/* Get the tetromino width from the dimensions map */
-getTetrominoWidth(TetrominoType type)
+/* Holds the color of each tetromino block */
+const map<TetrominoType, array<float, 3>> colors =
 {
-  return dimensions.at(type).size();
+  { O, { 0.85f, 0.85f, 0.0f } },
+  { I, { 0.0f, 0.85f, 0.85f } },
+  { T, { 0.85f, 0.0f, 0.85f } },
+  { Z, { 0.0f, 0.85f, 0.0f } },
+  { S, { 0.85f, 0.0f, 0.0f } },
+  { L, { 0.0f, 0.0f, 0.85f } },
+  { J, { 0.85f, 0.35f, 0.0f } },
+};
+
+/* Get the tetromino width from the dimensions map */
+int getTetrominoWidth(TetrominoType tetrominoType)
+{
+  return dimensions.at(tetrominoType).size();
 }
 
 /* Get the tetromino height from the dimensions map */
-getTetrominoHeight(TetrominoType type)
+int getTetrominoHeight(TetrominoType tetrominoType)
 {
-  return dimensions.at(type).at(0).size();
+  return dimensions.at(tetrominoType).at(0).size();
 }
 
 Tetromino::Tetromino(TetrominoType type) :
@@ -52,6 +65,9 @@ Tetromino::Tetromino(TetrominoType type) :
 {
   // Get the dimensions for the type
   vector<vector<int>> layout = dimensions.at(type);
+  // Get the color for the type
+  array<float, 3> color = colors.at(type);
+
   // Get height and width again
   int height = getTetrominoHeight(type);
   int width = getTetrominoWidth(type);
@@ -66,7 +82,8 @@ Tetromino::Tetromino(TetrominoType type) :
       {
         // Set the block to visible
         Block* block = getBlock(col, row);
-        block->setVisible(true);
+        block->setEmpty(false);
+        block->setColor(color);
       }
     }
   }

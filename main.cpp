@@ -1,8 +1,5 @@
 #include <iostream>
 
-#include <stdlib.h>
-#include <stddef.h>
-
 #include <GL/glew.h>
 #include <GL/glut.h>
 
@@ -18,6 +15,8 @@ void tick(int value)
 {
 		// Tick the game everytime the glut timer fires
 		game.nextTick();
+		// Redraw everything
+		glutPostRedisplay();
 		// The timer should be set depending on the level the user is on
 		glutTimerFunc(game.getSpeed(), tick, 0);
 }
@@ -29,6 +28,12 @@ void keypress(unsigned char key, int, int)
 	game.keypress(key);
 	// Redisplay after a keypress
 	glutPostRedisplay();
+}
+
+/* Passes on special key presses to the normal keypress handler */
+void specialKeypress(int key, int x, int y)
+{
+	keypress(key, x, y);
 }
 
 /* Displays the game */
@@ -45,6 +50,7 @@ void hookGlut()
 	glutTimerFunc(500, tick, 0);
 	glutDisplayFunc(display);
 	glutKeyboardFunc(keypress);
+	glutSpecialFunc(specialKeypress);
 }
 
 /* Displays version information about GLEW and openGL */
@@ -83,7 +89,7 @@ int main(int argc, char **argv)
 	// Hook the glut callbacks to methods in game
 	hookGlut();
 
-    glutMainLoop();
+  glutMainLoop();
 
 	return 0;
 }

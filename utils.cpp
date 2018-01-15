@@ -1,69 +1,49 @@
 #include <GL/glew.h>
 #include <GL/glut.h>
-
-#include <iostream>
+#include <string>
 #include "utils.h"
 
-#include <stdlib.h>
-#include <stddef.h>
+using namespace std;
 
-/* Draws text, where 0 < x, y < 1000 */
-void drawText(const int x, const int y, const char* message, const float fontSize)
+/* Draws text at x, y, with the given message and size of font */
+void drawText(int offsetX, int offsetY, string message, float fontSize, float weight)
 {
-	const int size = 1000;
-	// Disable lighting and setup projection matrix
-	glDisable(GL_LIGHTING);
-	glMatrixMode(GL_PROJECTION);
+	// Seperate matrix for each item of text
 	glPushMatrix();
-		// Reset view and define "viewing box"
-		glLoadIdentity();
-		gluOrtho2D(0, size, 0, size);
-		// Setup Model view matrix and reset it
-		glMatrixMode(GL_MODELVIEW);
-		glPushMatrix();
-			glLoadIdentity();
-			// Size the font
-			glScalef(fontSize, fontSize, 1.0f);
-			// Place the text within the bounds defined in 2D space
-			glTranslatef(x, y, 0.0f);
-			// Color it white
-			glColor3f(1.0f, 1.0f, 1.0f);
-			// Get the length of the string
-			size_t len = strlen(message);
-			// loop to display character by character
-			for (int i = 0; i < len; i++)
-			{
-				// Paint each character with strokes
-				glutStrokeCharacter(GLUT_STROKE_ROMAN, message[i]);
-			}
-		// Finish with the matricies
-		glPopMatrix();
+		// Size the font
+		glScalef(fontSize, fontSize, 1.0f);
+		// Place the text within the bounds defined in 2D space, scaling the coordinates correctly
+		glTranslatef(offsetX * (1/fontSize), offsetY * (1/fontSize), 0.0f);
+		glLineWidth(weight);
+		// loop to display character by character
+		for (int i = 0; i < message.length(); i++)
+		{
+			// Paint each character with strokes
+			glutStrokeCharacter(GLUT_STROKE_ROMAN, message[i]);
+		}
+	// Finish with the matrix
 	glPopMatrix();
-	// Re-enable lighting
-	glEnable(GL_LIGHTING);
 }
 
-void drawSquare(const int x, const int y, const int size)
+/* Draws a solid 1x1 square */
+void drawSquare()
 {
-	glDisable(GL_LIGHTING);
-	glPushMatrix();
-		glLoadIdentity();
-		glTranslatef(x, y, 0.0f);
-		glScalef(size, size, size);
-		glColor3f(1.0f, 0.2f, 1.0f);
-		glBegin(GL_POLYGON);
-			glVertex2f(-1.0f, -1.0f);
-			glVertex2f(-1.0f, 1.0f);
-			glVertex2f(1.0f, 1.0f);
-			glVertex2f(1.0f, -1.0f);
-		glEnd();
-		glColor3f(1.0f, 1.0f, 1.0f);
-		glBegin(GL_LINE_LOOP);
-			glVertex2f(-1.0f, -1.0f);
-			glVertex2f(-1.0f, 1.0f);
-			glVertex2f(1.0f, 1.0f);
-			glVertex2f(1.0f, -1.0f);
-		glEnd();
-	glPopMatrix();
-	glEnable(GL_LIGHTING);
+  glBegin(GL_POLYGON);
+    glVertex2f(0.0f, 0.0f);
+    glVertex2f(0.0f, 1.0f);
+    glVertex2f(1.0f, 1.0f);
+    glVertex2f(1.0f, 0.0f);
+  glEnd();
+}
+
+/* Draws the outline of a 1x1 square */
+void drawSquareOutline()
+{
+	const float padding = 0.00f;
+	glBegin(GL_LINE_LOOP);
+		glVertex2f(padding, padding);
+		glVertex2f(padding, 1.0f - padding);
+		glVertex2f(1.0f - padding, 1.0f - padding);
+		glVertex2f(1.0f - padding, padding);
+	glEnd();
 }
