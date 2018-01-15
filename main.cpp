@@ -36,6 +36,26 @@ void specialKeypress(int key, int x, int y)
 	keypress(key, x, y);
 }
 
+/* Resizes the window to maintain an aspect ratio of 1:1 */
+void resizeWindow(int width, int height)
+{
+	// Switch to project matrix and clear it
+  glMatrixMode(GL_PROJECTION);
+  glLoadIdentity();
+
+	// The left position is set to the middle-est possible within the ratio
+  int left = (width - height) / 2;
+
+	// Set the viewport to the new dimensions
+  glViewport(left, 0, height, height);
+
+	// Reinitialise the game display
+	game.initDisplay();
+
+	// Redraw everything
+  glutPostRedisplay();
+}
+
 /* Displays the game */
 void display()
 {
@@ -50,6 +70,7 @@ void hookGlut()
 	glutTimerFunc(500, tick, 0);
 	glutDisplayFunc(display);
 	glutKeyboardFunc(keypress);
+	glutReshapeFunc(resizeWindow);
 	glutSpecialFunc(specialKeypress);
 }
 
@@ -68,7 +89,7 @@ void initGlut(int argc, char **argv)
     glutInit(&argc, argv);
 
 	// Double buffering and RBGA mode
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
+	glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGBA);
 
 	glutInitWindowSize(768, 768);
 	glutCreateWindow("TetrisGL");

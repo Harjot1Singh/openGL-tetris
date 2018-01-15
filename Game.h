@@ -10,6 +10,7 @@ class Game : public IDisplay
 		void keypress(unsigned char key);
 		void nextTick();
 		int getSpeed();
+		void initDisplay();
 		Game();
 	private:
 		bool hasStarted = false;
@@ -34,7 +35,6 @@ class Game : public IDisplay
 		void displayScore();
 		void displayLevel();
 		void getNextPiece();
-		void initDisplay();
 		void gameKeypress(unsigned char key);
 };
 
